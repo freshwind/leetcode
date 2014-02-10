@@ -12,7 +12,7 @@ public:
     }
 
     void pathSumRec(vector<vector<int> > &grid, int &kM, int &kN, int &sum, int &min_sum, int &m, int &n) {
-        if (m==kM && n==kN) {
+        if (m==kM-1 && n==kN-1) {
             if (min_sum == 0) {
                 min_sum = sum;
             }
