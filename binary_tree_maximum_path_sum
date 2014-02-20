@@ -1,0 +1,59 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ 
+ struct Path {
+     int maxPath;
+     int maxRootPath;
+     Path(int x) : maxPath(x), maxRootPath(x) {}
+ };
+ 
+class Solution {
+public:
+    int maxPathSum(TreeNode *root) {
+        Path result = maxPath(root);
+        return result.maxPath;
+    }
+    
+    Path maxPath(TreeNode *root) {
+        if (root == NULL) {
+            return Path(-100000);
+        }
+        Path result(0);
+        Path leftPath = maxPath(root->left);
+        Path rightPath = maxPath(root->right);
+        if (leftPath.maxRootPath > rightPath.maxRootPath) {
+            result.maxRootPath = leftPath.maxRootPath;
+        } else {
+            result.maxRootPath = rightPath.maxRootPath;
+        }
+        if (result.maxRootPath < 0) {
+            result.maxRootPath = root->val;
+        } else {
+            result.maxRootPath += root->val;
+        }
+        result.maxPath = root->val;
+        if (leftPath.maxRootPath > 0) {
+            result.maxPath += leftPath.maxRootPath;
+        }
+        if (rightPath.maxRootPath > 0 ) {
+            result.maxPath += rightPath.maxRootPath;
+        }
+        if (leftPath.maxPath > result.maxPath && leftPath.maxPath > rightPath.maxPath) {
+            result.maxPath = leftPath.maxPath;
+        } else if (rightPath.maxPath > result.maxPath && rightPath.maxPath > leftPath.maxPath) {
+            result.maxPath = rightPath.maxPath;
+        } 
+        if (result.maxPath < root->val) {
+            result.maxPath = root->val;
+        }
+        return result;
+    }
+
+};
