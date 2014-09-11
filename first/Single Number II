@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int singleNumber(int A[], int n) {
+        int zero = -1;
+        int old_zero = 0;
+        int one = 0;
+        int old_one = 0;
+        int two = 0;
+        for (int i = 0; i < n; i++) {
+            old_zero = zero;
+            zero = zero&(~A[i]) ^ two&A[i];
+            old_one = one;
+            one = one&(~A[i]) ^ old_zero&A[i];
+            two = two&(~A[i]) ^ old_one&A[i];
+        }
+        return one;
+    }
+};
