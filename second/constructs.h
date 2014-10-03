@@ -33,4 +33,14 @@ TreeNode * constructTree(string c) {
     }
     return head;
 }
+
+ListNode *constructList(vector<int> nums) {
+    ListNode *head = new ListNode(nums[0]);
+    ListNode *probe = head;
+    for (int i = 1; i < nums.size(); ++i) {
+        probe->next = new ListNode(nums[i]);
+        probe = probe->next;
+    }
+    return head;
+}
 #endif
